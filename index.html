@@ -9,7 +9,6 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background: #ffe6eb;
-    height: 100vh;
     margin: 0;
     overflow: hidden;
 }
@@ -41,6 +40,19 @@ button {
 
 #noBtn {
     background-color: #ddd;
+    position: absolute;
+}
+
+/* floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
 }
 </style>
 </head>
@@ -70,13 +82,19 @@ const funnyTexts = [
     "You can't escape love 😌"
 ];
 
-noBtn.addEventListener("click", () => {
-    yesSize += 8;
-    yesBtn.style.fontSize = yesSize + "px";
-    yesBtn.style.padding = yesSize + "px";
+/* Move No button */
+function moveNoButton() {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 
     msg.innerHTML = funnyTexts[noClicks % funnyTexts.length];
     noClicks++;
+
+    yesSize += 8;
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding = yesSize + "px";
 
     if (yesSize > 120) {
         yesBtn.style.position = "fixed";
@@ -88,12 +106,48 @@ noBtn.addEventListener("click", () => {
         yesBtn.innerHTML = "Yayyy 💖 I knew it Garima!";
         noBtn.style.display = "none";
         msg.innerHTML = "Best decision ever 😌❤️";
+        startConfetti();
     }
+}
+
+/* desktop */
+noBtn.addEventListener("mouseover", moveNoButton);
+
+/* mobile */
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNoButton();
 });
 
 yesBtn.addEventListener("click", () => {
     msg.innerHTML = "You just made someone very happy 💕";
 });
+
+/* hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 500);
+
+/* confetti */
+function startConfetti() {
+    for(let i=0;i<80;i++){
+        const c=document.createElement("div");
+        c.innerHTML="💖";
+        c.style.position="fixed";
+        c.style.left=Math.random()*100+"vw";
+        c.style.top="-10px";
+        c.style.fontSize="20px";
+        c.style.animation="floatUp 4s linear forwards";
+        document.body.appendChild(c);
+    }
+}
 </script>
 
 </body>
