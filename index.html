@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Garima ❤️</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ffe6eb;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    margin-top: 80px;
+    color: #ff4d6d;
+}
+
+#msg {
+    font-size: 20px;
+    margin: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+#noBtn {
+    background-color: #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Garima, will you be my Valentine? ❤️</h1>
+<p id="msg">I promise snacks, memes & good vibes 🥺</p>
+
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 🙈</button>
+
+<script>
+let yesSize = 20;
+let noClicks = 0;
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const msg = document.getElementById("msg");
+
+const funnyTexts = [
+    "Are you sure? 😭",
+    "Think again Garima 🥺",
+    "I'll share my fries 🍟",
+    "Okay that hurt a little 😢",
+    "Last chance 😤",
+    "You can't escape love 😌"
+];
+
+noBtn.addEventListener("click", () => {
+    yesSize += 8;
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding = yesSize + "px";
+
+    msg.innerHTML = funnyTexts[noClicks % funnyTexts.length];
+    noClicks++;
+
+    if (yesSize > 120) {
+        yesBtn.style.position = "fixed";
+        yesBtn.style.top = "0";
+        yesBtn.style.left = "0";
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.fontSize = "50px";
+        yesBtn.innerHTML = "Yayyy 💖 I knew it Garima!";
+        noBtn.style.display = "none";
+        msg.innerHTML = "Best decision ever 😌❤️";
+    }
+});
+
+yesBtn.addEventListener("click", () => {
+    msg.innerHTML = "You just made someone very happy 💕";
+});
+</script>
+
+</body>
+</html>
